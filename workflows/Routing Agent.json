@@ -1,0 +1,347 @@
+{
+  "name": "IK Routing Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e1671a84-c33d-45ef-a957-a55701359188",
+      "name": "When chat message received",
+      "webhookId": "e70bc25e-5de2-4543-a3ff-35c7338bcff4"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1DZriLF5b4cBaClUBYRsS8ywDb_vrdfDiECGoz9_cP3o",
+          "mode": "list",
+          "cachedResultName": "IK support tickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DZriLF5b4cBaClUBYRsS8ywDb_vrdfDiECGoz9_cP3o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DZriLF5b4cBaClUBYRsS8ywDb_vrdfDiECGoz9_cP3o/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "User name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('User_name', ``, 'string') }}",
+            "User email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('User_email', ``, 'string') }}",
+            "Issue title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Issue_title', ``, 'string') }}",
+            "Issue description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Issue_description', ``, 'string') }}",
+            "Priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Priority', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "User name",
+              "displayName": "User name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "User email",
+              "displayName": "User email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Issue title",
+              "displayName": "Issue title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Issue description",
+              "displayName": "Issue description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        336,
+        224
+      ],
+      "id": "b0d75248-d018-4309-94ca-444fccfce8a3",
+      "name": "Append support ticket"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Xj2JZR4ymREaUOdTjLwVRcDWJrK8rduYHMUSi-jOyAs",
+          "mode": "list",
+          "cachedResultName": "IK spam",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xj2JZR4ymREaUOdTjLwVRcDWJrK8rduYHMUSi-jOyAs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xj2JZR4ymREaUOdTjLwVRcDWJrK8rduYHMUSi-jOyAs/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name', ``, 'string') }}",
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+            "Message content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_content', ``, 'string') }}",
+            "Reason for spam": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Reason_for_spam', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message content",
+              "displayName": "Message content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reason for spam",
+              "displayName": "Reason for spam",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        496,
+        224
+      ],
+      "id": "99bc0a06-db61-4287-b568-d41ebf562269",
+      "name": "Append to spam"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1MOAlgf-i8cVvbwB4tZsGrhpNVG0-JKO0TeT7AA2Vmrc",
+          "mode": "list",
+          "cachedResultName": "IK demo emails",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MOAlgf-i8cVvbwB4tZsGrhpNVG0-JKO0TeT7AA2Vmrc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MOAlgf-i8cVvbwB4tZsGrhpNVG0-JKO0TeT7AA2Vmrc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            " User name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('_User_name', ``, 'string') }}",
+            "User email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('User_email', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": " User name",
+              "displayName": " User name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "User email",
+              "displayName": "User email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        224
+      ],
+      "id": "a955642c-3b08-49d9-9494-43a0333aa7bc",
+      "name": "Append to demo request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI assistant that reviews incoming messages and decides what to do with them.\n\nMessage:\n{{ $json.chatInput }}\n\nIf the message is about booking a demo, pricing, or a sales call,\nstore it using the \"Demo Requests\" Google Sheets tool.\n\nIf the message is about bugs, login issues, errors, billing problems,\nor someone asking for help,\nstore it using the \"Support Tickets\" Google Sheets tool.\n\nIf the message is spam, promotional, irrelevant,\nor does not clearly fit the categories above,\nstore it using the \"Spam Reports\" Google Sheets tool.\n\nWhen storing the message, include:\n- a short summary\n- any name or company mentioned (if available)\n- the original message\n- a brief note explaining your decision\n\nUse only one tool.\n\nAfter calling the tool, reply with \"done\" and then the action you took like \"marked as spam\" or \"created support ticket\" or \"created demo request\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        352,
+        0
+      ],
+      "id": "3fb8d0c7-329e-40ef-b9d9-a416b3535532",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        192,
+        224
+      ],
+      "id": "44e653b7-8280-4861-b476-823ea8ab72a1",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "s00sUQei4yrPAUmQ",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append support ticket": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to spam": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to demo request": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "8ac1ea9f-c612-4f10-ba74-a53f7be59ecc",
+  "meta": {
+    "instanceId": "e7dfeabeb853ec38e16f44496eb39129efb80f2f272d3f46348c822114fa20c4"
+  },
+  "nodeGroups": [],
+  "id": "LSf5AlxQNx1fjScU",
+  "tags": []
+}

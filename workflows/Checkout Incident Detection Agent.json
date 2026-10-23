@@ -1,0 +1,413 @@
+{
+  "name": "Checkout Incident Detection Agent - Final",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "bc3fe7d3-431f-4678-849c-0c4835693e69",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "status",
+              "value": "Checkout Incident Agent Executed"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "db58bd48-6038-4720-ac00-03ca0732efb6",
+      "name": "Set Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        256,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nreturn [{\n  json: {\n    command_id: Date.now().toString(),\n    action: \"ALERT\",\n    severity: \"HIGH\",\n    reason: \"Sample routing logic executed successfully\",\n    timestamp: new Date().toISOString()\n  }\n}];\n"
+      },
+      "id": "a7578e5a-37de-411e-9193-ae37391362e6",
+      "name": "Routing Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        512,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4",
+          "mode": "list",
+          "cachedResultName": "Checkout_Incident_Agent_Sheets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 782631248,
+          "mode": "list",
+          "cachedResultName": "state",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit#gid=782631248"
+        },
+        "options": {}
+      },
+      "id": "516ee415-21ff-4fad-b367-c19699704be4",
+      "name": "Read State",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -912,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Cjyjjqr3oGXfJKnb",
+          "name": "Google Sheets account 33"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4",
+          "mode": "list",
+          "cachedResultName": "Checkout_Incident_Agent_Sheets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 797140638,
+          "mode": "list",
+          "cachedResultName": "cart_events",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit#gid=797140638"
+        },
+        "options": {}
+      },
+      "id": "fbdfd1b5-1b7d-4cc7-8376-0a9f2ee27a25",
+      "name": "Read Cart Events",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -672,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "u2ayH6aSwrVqlns1",
+          "name": "Google Sheets account 34"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst stateRow = $items(\"Read State\")[0].json;\nconst lastTs = new Date(stateRow.value || \"1970-01-01T00:00:00Z\").getTime();\n\nreturn items.filter(item => {\n  return new Date(item.json.timestamp).getTime() > lastTs;\n});\n"
+      },
+      "id": "ca91530c-2c90-4aaf-97a5-79aa177061b5",
+      "name": "Filter New Events",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4",
+          "mode": "list",
+          "cachedResultName": "Checkout_Incident_Agent_Sheets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1816280641,
+          "mode": "list",
+          "cachedResultName": "baseline_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit#gid=1816280641"
+        },
+        "options": {}
+      },
+      "id": "6b6c15b8-eeb8-40ed-9d19-fa4a25e59edc",
+      "name": "Read Baseline Metrics",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -160,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JqoF0GuxRQq1Z8eA",
+          "name": "Google Sheets account 35"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst baselineRows = $items(\"Read Baseline Metrics\");\n\nfunction getBaseline(step) {\n  const row = baselineRows.find(r => r.json.checkout_step === step);\n  return row ? Number(row.json.baseline_rate) : 0;\n}\n\nreturn items.map(item => {\n  const { checkout_step, cart_value, device, timestamp } = item.json;\n  const baseline_rate = getBaseline(checkout_step);\n\n  let severity = \"LOW\";\n  let action = \"LOG\";\n  let reason = \"Low impact isolated incident\";\n\n  if (checkout_step === \"Payment\") {\n    severity = \"HIGH\";\n    action = \"ALERT\";\n    reason = \"Payment step failure\";\n  }\n\n  if (Number(cart_value) > 200) {\n    severity = \"HIGH\";\n    action = \"ALERT\";\n    reason = \"High cart value failure\";\n  }\n\n  if (device === \"Mobile\") {\n    severity = \"HIGH\";\n    action = \"ALERT\";\n    reason = \"Mobile checkout failure pattern\";\n  }\n\n  return {\n    json: {\n      command_id: Date.now() + \"-\" + Math.random(),\n      action,\n      severity,\n      reason,\n      checkout_step,\n      cart_value,\n      device,\n      baseline_rate,\n      timestamp\n    }\n  };\n});\n"
+      },
+      "id": "9d452dd0-1725-4054-949b-c46951b8b030",
+      "name": "Decision Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        96,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4",
+          "mode": "list",
+          "cachedResultName": "Checkout_Incident_Agent_Sheets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1538766834,
+          "mode": "list",
+          "cachedResultName": "agent_commands",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1u7uPUqrpD1AbmDeUE6IQmFz7vhtQdGJmMPHa9ndf6l4/edit#gid=1538766834"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "command_id",
+              "displayName": "command_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "severity",
+              "displayName": "severity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "checkout_step",
+              "displayName": "checkout_step",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cart_value",
+              "displayName": "cart_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "device",
+              "displayName": "device",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "baseline_rate",
+              "displayName": "baseline_rate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "3a52e443-b39a-4239-b2e1-59a7d5c047d9",
+      "name": "Write Agent Command",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        352,
+        -160
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5yI5a92hwmsWLQtf",
+          "name": "Google Sheets account 36"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.site/e2c6a88c-fb63-467c-a8bb-a01b6972c25b",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "id": "bfb5db20-ebd9-4f80-81f9-fc5365909675",
+      "name": "Send Webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        336,
+        160
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data": {
+      "main": [
+        [
+          {
+            "node": "Routing Logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read State": {
+      "main": [
+        [
+          {
+            "node": "Read Cart Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Cart Events": {
+      "main": [
+        [
+          {
+            "node": "Filter New Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter New Events": {
+      "main": [
+        [
+          {
+            "node": "Read Baseline Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Baseline Metrics": {
+      "main": [
+        [
+          {
+            "node": "Decision Logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decision Logic": {
+      "main": [
+        [
+          {
+            "node": "Write Agent Command",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7b93a142-6b76-4dec-a70a-8bcdd4a5eeae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f8915628d001c9f12c477501d438b0ef663b51074cad39b3fe2c37a0f1ebd929"
+  },
+  "id": "TLWLMtwCYe9M5keO",
+  "tags": []
+}
